@@ -2,10 +2,10 @@ import 'package:fixnum/fixnum.dart';
 import 'package:quiver/check.dart';
 
 class Position implements Comparable<Position> {
-  static final Position START = Position(0, 0);
-  static final Position END = Position(-1, -1);
-  final int prepare;
-  final int commit;
+  static final Position START = Position(Int64(0), Int64(0));
+  static final Position END = Position(Int64(-1), Int64(-1));
+  final Int64 prepare;
+  final Int64 commit;
 
   Position(this.commit, this.prepare) {
     checkArgument(commit.compareTo(prepare) >= 0,
@@ -13,11 +13,11 @@ class Position implements Comparable<Position> {
   }
 
   Position.fromString(String prepare, String commit)
-      : this(int.parse(commit), int.parse(prepare));
+      : this(Int64.parseInt(commit), Int64.parseInt(prepare));
 
   @override
   int compareTo(Position other) {
-    if (commit == other.commit && this.prepare == other.prepare) {
+    if (commit == other.commit && prepare == other.prepare) {
       return 0;
     }
     if (commit < other.commit ||

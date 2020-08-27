@@ -10,17 +10,22 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class ReadReq_Options_ReadDirection extends $pb.ProtobufEnum {
-  static const ReadReq_Options_ReadDirection Forwards = ReadReq_Options_ReadDirection._(0, 'Forwards');
-  static const ReadReq_Options_ReadDirection Backwards = ReadReq_Options_ReadDirection._(1, 'Backwards');
+  static const ReadReq_Options_ReadDirection Forwards =
+      ReadReq_Options_ReadDirection._(0, 'Forwards');
+  static const ReadReq_Options_ReadDirection Backwards =
+      ReadReq_Options_ReadDirection._(1, 'Backwards');
 
-  static const $core.List<ReadReq_Options_ReadDirection> values = <ReadReq_Options_ReadDirection> [
+  static const $core.List<ReadReq_Options_ReadDirection> values =
+      <ReadReq_Options_ReadDirection>[
     Forwards,
     Backwards,
   ];
 
-  static final $core.Map<$core.int, ReadReq_Options_ReadDirection> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static ReadReq_Options_ReadDirection valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, ReadReq_Options_ReadDirection> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
+  static ReadReq_Options_ReadDirection valueOf($core.int value) =>
+      _byValue[value];
 
-  const ReadReq_Options_ReadDirection._($core.int v, $core.String n) : super(v, n);
+  const ReadReq_Options_ReadDirection._($core.int v, $core.String n)
+      : super(v, n);
 }
-

@@ -10,53 +10,53 @@ import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
-import 'streams.pb.dart' as $0;
+import 'streams.pb.dart' as $6;
 export 'streams.pb.dart';
 
 class StreamsClient extends $grpc.Client {
-  static final _$read = $grpc.ClientMethod<$0.ReadReq, $0.ReadResp>(
+  static final _$read = $grpc.ClientMethod<$6.ReadReq, $6.ReadResp>(
       '/event_store.client.streams.Streams/Read',
-      ($0.ReadReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.ReadResp.fromBuffer(value));
-  static final _$append = $grpc.ClientMethod<$0.AppendReq, $0.AppendResp>(
+      ($6.ReadReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $6.ReadResp.fromBuffer(value));
+  static final _$append = $grpc.ClientMethod<$6.AppendReq, $6.AppendResp>(
       '/event_store.client.streams.Streams/Append',
-      ($0.AppendReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.AppendResp.fromBuffer(value));
-  static final _$delete = $grpc.ClientMethod<$0.DeleteReq, $0.DeleteResp>(
+      ($6.AppendReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $6.AppendResp.fromBuffer(value));
+  static final _$delete = $grpc.ClientMethod<$6.DeleteReq, $6.DeleteResp>(
       '/event_store.client.streams.Streams/Delete',
-      ($0.DeleteReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.DeleteResp.fromBuffer(value));
+      ($6.DeleteReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $6.DeleteResp.fromBuffer(value));
   static final _$tombstone =
-      $grpc.ClientMethod<$0.TombstoneReq, $0.TombstoneResp>(
+      $grpc.ClientMethod<$6.TombstoneReq, $6.TombstoneResp>(
           '/event_store.client.streams.Streams/Tombstone',
-          ($0.TombstoneReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.TombstoneResp.fromBuffer(value));
+          ($6.TombstoneReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $6.TombstoneResp.fromBuffer(value));
 
   StreamsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseStream<$0.ReadResp> read($0.ReadReq request,
+  $grpc.ResponseStream<$6.ReadResp> read($6.ReadReq request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$read, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseStream(call);
   }
 
-  $grpc.ResponseFuture<$0.AppendResp> append(
-      $async.Stream<$0.AppendReq> request,
+  $grpc.ResponseFuture<$6.AppendResp> append(
+      $async.Stream<$6.AppendReq> request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$append, request, options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<$0.DeleteResp> delete($0.DeleteReq request,
+  $grpc.ResponseFuture<$6.DeleteResp> delete($6.DeleteReq request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$delete, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<$0.TombstoneResp> tombstone($0.TombstoneReq request,
+  $grpc.ResponseFuture<$6.TombstoneResp> tombstone($6.TombstoneReq request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$tombstone, $async.Stream.fromIterable([request]),
         options: options);
@@ -68,56 +68,56 @@ abstract class StreamsServiceBase extends $grpc.Service {
   $core.String get $name => 'event_store.client.streams.Streams';
 
   StreamsServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.ReadReq, $0.ReadResp>(
+    $addMethod($grpc.ServiceMethod<$6.ReadReq, $6.ReadResp>(
         'Read',
         read_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $0.ReadReq.fromBuffer(value),
-        ($0.ReadResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.AppendReq, $0.AppendResp>(
+        ($core.List<$core.int> value) => $6.ReadReq.fromBuffer(value),
+        ($6.ReadResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$6.AppendReq, $6.AppendResp>(
         'Append',
         append,
         true,
         false,
-        ($core.List<$core.int> value) => $0.AppendReq.fromBuffer(value),
-        ($0.AppendResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.DeleteReq, $0.DeleteResp>(
+        ($core.List<$core.int> value) => $6.AppendReq.fromBuffer(value),
+        ($6.AppendResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$6.DeleteReq, $6.DeleteResp>(
         'Delete',
         delete_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.DeleteReq.fromBuffer(value),
-        ($0.DeleteResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.TombstoneReq, $0.TombstoneResp>(
+        ($core.List<$core.int> value) => $6.DeleteReq.fromBuffer(value),
+        ($6.DeleteResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$6.TombstoneReq, $6.TombstoneResp>(
         'Tombstone',
         tombstone_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.TombstoneReq.fromBuffer(value),
-        ($0.TombstoneResp value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $6.TombstoneReq.fromBuffer(value),
+        ($6.TombstoneResp value) => value.writeToBuffer()));
   }
 
-  $async.Stream<$0.ReadResp> read_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.ReadReq> request) async* {
+  $async.Stream<$6.ReadResp> read_Pre(
+      $grpc.ServiceCall call, $async.Future<$6.ReadReq> request) async* {
     yield* read(call, await request);
   }
 
-  $async.Future<$0.DeleteResp> delete_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.DeleteReq> request) async {
+  $async.Future<$6.DeleteResp> delete_Pre(
+      $grpc.ServiceCall call, $async.Future<$6.DeleteReq> request) async {
     return delete(call, await request);
   }
 
-  $async.Future<$0.TombstoneResp> tombstone_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.TombstoneReq> request) async {
+  $async.Future<$6.TombstoneResp> tombstone_Pre(
+      $grpc.ServiceCall call, $async.Future<$6.TombstoneReq> request) async {
     return tombstone(call, await request);
   }
 
-  $async.Stream<$0.ReadResp> read($grpc.ServiceCall call, $0.ReadReq request);
-  $async.Future<$0.AppendResp> append(
-      $grpc.ServiceCall call, $async.Stream<$0.AppendReq> request);
-  $async.Future<$0.DeleteResp> delete(
-      $grpc.ServiceCall call, $0.DeleteReq request);
-  $async.Future<$0.TombstoneResp> tombstone(
-      $grpc.ServiceCall call, $0.TombstoneReq request);
+  $async.Stream<$6.ReadResp> read($grpc.ServiceCall call, $6.ReadReq request);
+  $async.Future<$6.AppendResp> append(
+      $grpc.ServiceCall call, $async.Stream<$6.AppendReq> request);
+  $async.Future<$6.DeleteResp> delete(
+      $grpc.ServiceCall call, $6.DeleteReq request);
+  $async.Future<$6.TombstoneResp> tombstone(
+      $grpc.ServiceCall call, $6.TombstoneReq request);
 }

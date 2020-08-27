@@ -8,7 +8,15 @@
 const UUID$json = const {
   '1': 'UUID',
   '2': const [
-    const {'1': 'structured', '3': 1, '4': 1, '5': 11, '6': '.event_store.client.shared.UUID.Structured', '9': 0, '10': 'structured'},
+    const {
+      '1': 'structured',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.shared.UUID.Structured',
+      '9': 0,
+      '10': 'structured'
+    },
     const {'1': 'string', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'string'},
   ],
   '3': const [UUID_Structured$json],
@@ -20,8 +28,20 @@ const UUID$json = const {
 const UUID_Structured$json = const {
   '1': 'Structured',
   '2': const [
-    const {'1': 'most_significant_bits', '3': 1, '4': 1, '5': 3, '10': 'mostSignificantBits'},
-    const {'1': 'least_significant_bits', '3': 2, '4': 1, '5': 3, '10': 'leastSignificantBits'},
+    const {
+      '1': 'most_significant_bits',
+      '3': 1,
+      '4': 1,
+      '5': 3,
+      '10': 'mostSignificantBits'
+    },
+    const {
+      '1': 'least_significant_bits',
+      '3': 2,
+      '4': 1,
+      '5': 3,
+      '10': 'leastSignificantBits'
+    },
   ],
 };
 
@@ -38,4 +58,3 @@ const StreamIdentifier$json = const {
     const {'1': 1, '2': 3},
   ],
 };
-

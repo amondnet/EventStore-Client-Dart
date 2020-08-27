@@ -1,22 +1,13 @@
-A library for Dart developers.
+# Event Store Dart Client
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+EventStoreDB is the open-source, functional database with Complex Event Processing in JavaScript.
 
-## Usage
+This is the repository for the Dart client for EventStoreDB version 20+ and uses gRPC as the communication protocol.
 
-A simple usage example:
 
-```dart
-import 'package:event_store/event_store.dart';
 
-main() {
-  var awesome = new Awesome();
-}
-```
+## Documentation
 
-## Features and bugs
+Documentation for EventStoreDB can be found here: Event Store Docs.
 
-Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
