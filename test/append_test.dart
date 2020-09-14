@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Append Tests', () {
-    EventStoreStreamsClient awesome;
+    client;
 
     setUp(() {
       awesome = Awesome();
