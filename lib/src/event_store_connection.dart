@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:event_store/src/endpoint.dart';
-import 'package:event_store/src/generated/streams.pbgrpc.dart';
+import 'package:event_store/src/streams_client.dart';
 import 'package:event_store/src/timeouts.dart';
 import 'package:event_store/src/user_credentials.dart';
 import 'package:grpc/grpc.dart' as $grpc;
@@ -14,42 +14,54 @@ class EventStoreConnection {
   UserCredentials userCredentials;
   bool requiresLeader;
   bool insecure;
-  EventStoreConnection({this.endpoint});
 
-  factory EventStoreConnection.createSingleNodeConnection(String hostname, int port) {
-    return EventStoreConnection(endpoint :Endpoint(hostname, port));
+  EventStoreConnection(
+      {this.endpoint,
+      this.gossipSeeds,
+      this.userCredentials,
+      this.insecure = false,
+      this.requiresLeader,
+      this.timeouts});
+
+  factory EventStoreConnection.createSingleNodeConnection(Endpoint endpoint,
+      {UserCredentials credentials, bool insecure = false}) {
+    return EventStoreConnection(
+        endpoint: endpoint, userCredentials: credentials, insecure: insecure);
   }
-  factory EventStoreConnection.createClusterConnectionUsingSeeds(String hostname, int port) {
-    return EventStoreConnection(endpoint :Endpoint(hostname, port));
+
+  factory EventStoreConnection.createClusterConnectionUsingSeeds(
+      List<Endpoint> endpoints) {
+    return EventStoreConnection(gossipSeeds: endpoints);
   }
-  factory EventStoreConnection.createClusterConnectionUsingSeeds(String hostname, int port) {
-    return EventStoreConnection(endpoint :Endpoint(hostname, port));
-  }
+
   StreamsClient newStreamsClient() {
-    return StreamsClient(_createManagedChannel)
+    return StreamsClient(_createManagedChannel(), userCredentials, timeouts);
   }
-
 
   $grpc.ClientChannel _createManagedChannel() {
-
     List<InternetAddress> addresses;
     var target = domain ?? '';
-    if ( gossipSeeds != null ) {
+    if (gossipSeeds != null) {
       addresses = [];
-      for ( var i = 0; i < gossipSeeds.length; ++i ) {
+      for (var i = 0; i < gossipSeeds.length; ++i) {
         var seed = gossipSeeds[i];
-        var address = InternetAddress('${seed.hostname}:${seed.port}', type: InternetAddressType.unix);
+        var address = InternetAddress('${seed.hostname}:${seed.port}',
+            type: InternetAddressType.unix);
         addresses.add(address);
       }
     }
-    if ( domain != null || gossipSeeds != null ) {
+    // Cluster
+    if (domain != null || gossipSeeds != null) {
+    } else {
+      // Single
 
+      return $grpc.ClientChannel(endpoint.hostname,
+          port: endpoint.port,
+          options: $grpc.ChannelOptions(
+              userAgent: 'Event Store Client (Dart)',
+              credentials: insecure
+                  ? $grpc.ChannelCredentials.insecure()
+                  : $grpc.ChannelCredentials.secure()));
     }
-
-    var address = InternetAddress(domain).address;
-    var port = InternetAddress(domain).;
-    return $grpc.ClientChannel( address, ,  $grpc.ChannelOptions());
   }
 }
-
-

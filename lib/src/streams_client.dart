@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:event_store/src/stream_revision.dart';
 import 'package:event_store/src/system_metadata_keys.dart';
 import 'package:event_store/src/user_credentials.dart';
+import 'package:event_store/src/uuid.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:quiver/check.dart';
@@ -83,15 +84,9 @@ class StreamsClient {
     checkNotNull(proposedEvents);
     Stream<AppendReq> generateRequest() async* {
       for (var e in proposedEvents) {
-        var uuid = Uuid().parse(e.eventId);
-        var mostBits = Int64.fromBytes(uuid.sublist(0, 7));
-        var leastBits = Int64.fromBytes(uuid.sublist(8, 15));
         yield AppendReq()
           ..proposedMessage = (AppendReq_ProposedMessage()
-            ..id = (UUID()
-              ..structured = (UUID_Structured()
-                ..mostSignificantBits = mostBits
-                ..leastSignificantBits = leastBits))
+            ..id = uuid.toUUIDStructured(e.eventId)
             ..data = e.eventData
             ..customMetadata = e.userMetadata
             ..metadata[SystemMetadataKeys.CONTENT_TYPE] = e.contentType
@@ -189,7 +184,7 @@ class StreamsClient {
         throw StreamNotFoundError();
       }
       if (value.hasEvent()) {
-        resolvedEvents.add(ResolvedEvent.fromWire(value.event));
+        resolvedEvents.add(ResolvedEvent.fromWireStream(value.event));
       }
     }
     return ReadResult(resolvedEvents);

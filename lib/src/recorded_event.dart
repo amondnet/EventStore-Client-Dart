@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:event_store/src/generated/streams.pb.dart';
 import 'package:event_store/src/position.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:uuid/uuid.dart';
+
+import 'generated/perssistent.pbgrpc.dart' as $persistent;
+import 'generated/streams.pbgrpc.dart' as $streams;
 
 import 'stream_revision.dart';
 import 'system_metadata_keys.dart';
@@ -44,7 +45,31 @@ class RecordedEvent {
     return Instant.fromEpochNanoseconds(nanos);
   }
 
-  static RecordedEvent fromWire(ReadResp_ReadEvent_RecordedEvent wireEvent) {
+  static RecordedEvent fromWireStream(
+      $streams.ReadResp_ReadEvent_RecordedEvent wireEvent) {
+    String eventId;
+    if (wireEvent.id.hasStructured()) {
+      var structured = wireEvent.id.structured;
+      eventId = _uuid.unparse([
+        structured.mostSignificantBits.toInt(),
+        structured.leastSignificantBits.toInt()
+      ]);
+    } else {
+      eventId = wireEvent.id.string;
+    }
+
+    return RecordedEvent(
+        utf8.decode(wireEvent.streamIdentifier.streamName),
+        StreamRevision(wireEvent.streamRevision),
+        eventId,
+        Position(wireEvent.commitPosition, wireEvent.preparePosition),
+        wireEvent.metadata,
+        wireEvent.data,
+        wireEvent.customMetadata);
+  }
+
+  static RecordedEvent fromWirePersistent(
+      $persistent.ReadResp_ReadEvent_RecordedEvent wireEvent) {
     String eventId;
     if (wireEvent.id.hasStructured()) {
       var structured = wireEvent.id.structured;

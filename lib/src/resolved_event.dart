@@ -1,4 +1,6 @@
-import 'generated/streams.pb.dart';
+import 'generated/perssistent.pbgrpc.dart' as $persistent;
+import 'generated/streams.pbgrpc.dart' as $streams;
+
 import 'recorded_event.dart';
 
 class ResolvedEvent {
@@ -7,10 +9,22 @@ class ResolvedEvent {
 
   ResolvedEvent(this.event, this.link);
 
-  factory ResolvedEvent.fromWire(ReadResp_ReadEvent wireEvent) {
-    RecordedEvent event =
-        wireEvent.hasEvent() ? RecordedEvent.fromWire(wireEvent.event) : null;
-    RecordedEvent link =
-        wireEvent.hasLink() ? RecordedEvent.fromWire(wireEvent.link) : null;
+  factory ResolvedEvent.fromWireStream($streams.ReadResp_ReadEvent wireEvent) {
+    RecordedEvent event = wireEvent.hasEvent()
+        ? RecordedEvent.fromWireStream(wireEvent.event)
+        : null;
+    RecordedEvent link = wireEvent.hasLink()
+        ? RecordedEvent.fromWireStream(wireEvent.link)
+        : null;
+  }
+
+  factory ResolvedEvent.fromWirePersistent(
+      $persistent.ReadResp_ReadEvent wireEvent) {
+    RecordedEvent event = wireEvent.hasEvent()
+        ? RecordedEvent.fromWirePersistent(wireEvent.event)
+        : null;
+    RecordedEvent link = wireEvent.hasLink()
+        ? RecordedEvent.fromWirePersistent(wireEvent.link)
+        : null;
   }
 }
