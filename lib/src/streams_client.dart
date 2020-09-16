@@ -8,31 +8,16 @@ import 'package:event_store/src/uuid.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:quiver/check.dart';
-import 'package:uuid/uuid.dart';
 
 import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import '../event_store.dart';
-import 'direction.dart';
-import 'direction.dart';
 import 'direction.dart';
 import 'errors.dart';
-import 'generated/shared.pb.dart';
 import 'generated/shared.pb.dart';
 import 'generated/streams.pb.dart';
 import 'generated/streams.pbgrpc.dart' as $grpc;
 import 'position.dart';
-import 'position.dart';
 import 'proposed_event.dart';
 import 'read_result.dart';
-import 'read_result.dart';
-import 'read_result.dart';
-import 'resolved_event.dart';
 import 'resolved_event.dart';
 import 'timeouts.dart';
 import 'write_result.dart';
@@ -44,9 +29,17 @@ class StreamsClient {
   $grpc.StreamsClient _stub;
 
   StreamsClient(this.channel, this.userCredentials, this.timeouts) {
+    checkNotNull(channel);
+    checkNotNull(userCredentials);
+
     var headers = {'authorization': userCredentials.basicAuthHeader};
-    _stub =
-        $grpc.StreamsClient(channel, options: CallOptions(metadata: headers));
+
+    _stub = $grpc.StreamsClient(
+      channel,
+      options: CallOptions(
+        metadata: headers,
+      ),
+    );
   }
 
   Future<void> shutdown() {
@@ -92,6 +85,7 @@ class StreamsClient {
             ..metadata[SystemMetadataKeys.CONTENT_TYPE] = e.contentType
             ..metadata[SystemMetadataKeys.TYPE] = e.eventType);
       }
+      return;
     }
 
     var result = await _stub.append(generateRequest());

@@ -24,9 +24,12 @@ class EventStoreConnection {
       this.timeouts});
 
   factory EventStoreConnection.createSingleNodeConnection(Endpoint endpoint,
-      {UserCredentials credentials, bool insecure = false}) {
+      {UserCredentials credentials, bool insecure = false, Timeouts timeouts}) {
     return EventStoreConnection(
-        endpoint: endpoint, userCredentials: credentials, insecure: insecure);
+        endpoint: endpoint,
+        userCredentials: credentials,
+        insecure: insecure,
+        timeouts: timeouts);
   }
 
   factory EventStoreConnection.createClusterConnectionUsingSeeds(
@@ -35,7 +38,8 @@ class EventStoreConnection {
   }
 
   StreamsClient newStreamsClient() {
-    return StreamsClient(_createManagedChannel(), userCredentials, timeouts);
+    return StreamsClient(
+        _createManagedChannel(), userCredentials, timeouts ?? Timeouts.DEFAULT);
   }
 
   $grpc.ClientChannel _createManagedChannel() {
@@ -52,9 +56,10 @@ class EventStoreConnection {
     }
     // Cluster
     if (domain != null || gossipSeeds != null) {
+      print('error');
     } else {
       // Single
-
+      print('single');
       return $grpc.ClientChannel(endpoint.hostname,
           port: endpoint.port,
           options: $grpc.ChannelOptions(
